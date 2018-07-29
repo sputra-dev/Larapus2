@@ -26,6 +26,7 @@ class AuthorController extends Controller
                         'model'=> $author,
                         'form_url'=> route('authors.destroy', $author->id),
                         'edit_url' => route('authors.edit', $author->id),
+                        'confirm_message' => 'Yakin mau menghapus ' . $author->name . '?'
                     ]);
                     })->make(true);
         }
@@ -54,8 +55,8 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $author = new Author;
-        $author->name = $request->name;
+        $this->validate($request, ['name' => 'required|unique:authors']); 
+        $author = Author::create($request->only('name'));
         $author->save();
         Session::flash("flash_notification", [
                 "level"=>"success",
@@ -94,16 +95,15 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
-         $this->validate($request, ['name' => 'required|unique:authors,name,'. $author->id]);
-        $author = Author::findOrFail($author->id);
-        $author->name = $request->name;
-        $author->save();
+        $this->validate($request, ['name' => 'required|unique:authors,name,'. $id]);
+        $author = Author::find($id);
+        $author->update($request->only('name'));
         Session::flash("flash_notification", [
-                "level"=>"success",
-                "message"=>"Berhasil menyimpan <b>". $author->name."</b>"
-                ]);
+        "level"=>"success",
+        "message"=>"Berhasil menyimpan $author->name"
+        ]);
         return redirect()->route('authors.index');
     }
 
@@ -113,9 +113,9 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
-        Author::destroy($author->id);
+        if(!Author::destroy($id)) return redirect()->back();
         Session::flash("flash_notification", [
         "level"=>"success",
         "message"=>"Penulis berhasil dihapus"

@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'admin','middleware'=>['auth']],function(){
     //isi route
     Route::resource('authors','AuthorController');
+    Route::resource('books', 'BookController');
 });

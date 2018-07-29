@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -11,15 +12,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap.min.js')}}"></script>
-    @yield('scripts')
+   
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-    <!-- Styles -->
+    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Datatables -->
@@ -41,12 +39,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                    @if (Auth::check())
-                    <li><a href="{{ url('/home') }}">Dashboard</a></li>     
-                    <li><a href="{{ route('authors.index') }}">Penulis</a></li>
-                    @endif
+                        @if (Auth::check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                            </li>
+                            @role('admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('authors.index') }}">Penulis</a>
+                            </li>
+                            @endrole
+                            @role('admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('books.index') }}">Buku</a>
+                            </li>
+                            @endrole
+                        @endif
                     </ul>
-
+                    
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -82,10 +91,17 @@
                 </div>
             </div>
         </nav>
-
+        
         <main class="py-4">
-            @yield('content')
+        @include('layouts._flash')
+        @yield('content')
         </main>
     </div>
+    <!-- Styles -->
+    <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/js/custom.js')}}"></script>
+    @yield('scripts')
 </body>
 </html>
