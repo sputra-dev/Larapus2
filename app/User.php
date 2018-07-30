@@ -21,7 +21,12 @@ class User extends Authenticatable
      */
     public function borrow(Book $book)
     {
-        // return $this->HasMany('App\BorrowLog','user_id');
+    
+    // cek apakah masih ada stok buku
+    if ($book->stock < 1) {
+    throw new BookException("Buku $book->title sedang tidak tersedia.");
+    }
+
     // cek apakah buku ini sedang dipinjam oleh user
     if($this->borrowLogs()->where('book_id',$book->id)->where('is_returned', 0)->count() > 0 ) {
     throw new BookException("Buku $book->title sedang Anda pinjam.");

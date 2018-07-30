@@ -1,17 +1,25 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-title">Dashboard</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb primary">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" aria-current="page">Home</li>
+                </ol>
+            </nav>
+            <div class="card">
+                <div class="card-header">Data Penulis</div>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                Selamat datang di Menu Admin Perpustakaan Bandung. Silahkan pilih menu administrasi yang diinginkan.
+            </div>
         </div>
-        <div class="panel-body">
-          Selamat datang di Menu Administrasi Larapus. Silahkan pilih menu administrasi yang diinginkan.
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 @endsection

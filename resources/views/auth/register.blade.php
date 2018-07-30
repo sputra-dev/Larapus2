@@ -9,6 +9,7 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+
                         @csrf
 
                         <div class="form-group row">
@@ -57,7 +58,11 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Konfirmasi Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  required>
+                                <br>
+                                <div class="g-recaptcha" data-sitekey="6Le_I2cUAAAAAKzGFWpI1OtYxORsX7Of0efKazrj">
+                                    
+                                </div>
                             </div>
                         </div>
 
