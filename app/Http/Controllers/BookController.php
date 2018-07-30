@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\BorrowLog;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\StoreBookRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
+use App\Exceptions\BookException;
 use Session;
 use File;
 
@@ -186,4 +190,29 @@ class BookController extends Controller
 
         return redirect()->route('books.index');
     }
+
+    public function borrow($id)
+    {
+        try {
+        $book = Book::findOrFail($id);
+        Auth::user()->borrow($book);
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Berhasil meminjam $book->title"
+        ]);
+        } catch (BookException $e) {
+        Session::flash("flash_notification", [
+        "level" => "danger",
+        "message" => $e->getMessage()
+        ]);
+        } catch (ModelNotFoundException $e) {
+        Session::flash("flash_notification", [
+        "level"=>"danger",
+        "message"=>"Buku tidak ditemukan."
+        ]);
+    }
+
+        return redirect('/');
+}
+
 }
