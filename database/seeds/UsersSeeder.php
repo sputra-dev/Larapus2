@@ -30,6 +30,7 @@ class UsersSeeder extends Seeder
         $admin->name = 'Admin Perpustakaan';
         $admin->email = 'admin@gmail.com';
         $admin->password = bcrypt('rahasia');
+        $admin->is_verified = 1;
         $admin->save();
         $admin->attachRole($adminRole);
 
@@ -39,6 +40,7 @@ class UsersSeeder extends Seeder
         $member->email = 'member@gmail.com';
         $member->password = bcrypt('rahasia');
         $member->save();
+        $member->is_verified = 1;
         $member->attachRole($memberRole);
     }
 }

@@ -59,13 +59,17 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  required>
-                                <br>
-                                <div class="g-recaptcha" data-sitekey="6Le_I2cUAAAAAKzGFWpI1OtYxORsX7Of0efKazrj">
-                                    
+                        
                                 </div>
                             </div>
+                            <center>
+                        <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                            <div class="col-md-offset-4 col-md-6" data-sitekey="6Le_I2cUAAAAAKzGFWpI1OtYxORsX7Of0efKazrj">
+                            {!! app('captcha')->display() !!}
+                            {!! $errors->first('g-recaptcha-response', '<p class="help-block">:message</p>') !!}
+                            </div>
                         </div>
-
+                            </center>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
