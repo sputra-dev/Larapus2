@@ -42,20 +42,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::check())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
-                            </li>
-                            @role('admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('authors.index') }}">Penulis</a>
-                            </li>
-                            @endrole
-                            @role('admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('books.index') }}">Buku</a>
-                            </li>
-                            @endrole
+                           {!! Html::smartNav(url('/home'), 'Home') !!}&nbsp;&nbsp;
                         @endif
+                           @role('admin')
+                            {!! Html::smartNav(route('authors.index'), 'Penulis') !!}&nbsp;&nbsp;
+                            {!! Html::smartNav(route('books.index'), 'Buku') !!}&nbsp;&nbsp;
+                            {!! Html::smartNav(route('members.index'), 'Member') !!}&nbsp;&nbsp;
+                            {!! Html::smartNav(route('statistics.index'), 'Peminjaman') !!}&nbsp;&nbsp;
+                            @endrole
+                            @if (auth()->check())
+                           {!! Html::smartNav(url('/settings/profile'), 'Profil') !!}
+                            @endif
                     </ul>
                     
                     <!-- Right Side Of Navbar -->
@@ -76,7 +73,8 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ url('/settings/password') }}"><i class="fas fa-btn fa-lock"></i> Ubah Password</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -86,7 +84,8 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                                </li>
+                                </ul>
                             </li>
                         @endguest
                     </ul>

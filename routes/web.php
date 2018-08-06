@@ -25,6 +25,34 @@ Route::group(['prefix'=>'admin','middleware'=>['auth']],function(){
     //isi route
     Route::resource('authors','AuthorController');
     Route::resource('books', 'BookController');
+    Route::resource('members', 'MemberController');
+
+    Route::get('statistics', [
+	'as'=>'statistics.index',
+	'uses'=>'StatisticController@index'
+	]);
+
+	Route::get('export/books', [
+	'as' => 'export.books',
+	'uses' => 'BookController@export'
+	]);
+
+	Route::post('export/books', [
+	'as' => 'export.books.post',
+	'uses' => 'BookController@exportPost'
+	]);
+
+	Route::get('template/books', [
+	'as' => 'template.books',
+	'uses' => 'BookController@generateExcelTemplate'
+	]);
+
+	Route::post('import/books', [
+	'as' => 'import.books',
+	'uses' => 'BookController@importExcel'
+	]);
+
+
 });
 
 Route::get('books/{book}/borrow', [
@@ -41,3 +69,12 @@ Route::put('books/{book}/return', [
 
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
 Route::get('auth/send-verification', 'Auth\RegisterController@sendVerification');
+
+Route::get('settings/profile', 'SettingsController@profile');
+Route::get('settings/profile/edit', 'SettingsController@editProfile');
+Route::post('settings/profile', 'SettingsController@updateProfile');
+
+Route::get('settings/password', 'SettingsController@editPassword');
+Route::post('settings/password', 'SettingsController@updatePassword');
+
+

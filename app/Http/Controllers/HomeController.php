@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laratrust\LaratrustFacade as Laratrust;
@@ -31,12 +32,20 @@ class HomeController extends Controller
     }
     protected function adminDashboard()
     {
-    return view('dashboard.admin');
+         $authors = [];
+         $books = [];
+         foreach (Author::all() as $author) {
+         array_push($authors, $author->name);
+         array_push($books, $author->books->count());
+         }
+
+         return view('dashboard.admin', compact('authors', 'books'));
     }
+    
     protected function memberDashboard()
     {
-    $borrowLogs = Auth::user()->borrowLogs()->borrowed()->get();
-    return view('dashboard.member', compact('borrowLogs'));
+        $borrowLogs = Auth::user()->borrowLogs()->borrowed()->get();
+        return view('dashboard.member', compact('borrowLogs'));
     }
 
 }

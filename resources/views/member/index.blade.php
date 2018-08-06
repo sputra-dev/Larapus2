@@ -7,23 +7,21 @@
             <nav aria-label="breadcrumb primary">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/home') }}">Home</a> </li>
-                    <li class="breadcrumb-item active" aria-current="page">Buku</li>
+                    <li class="breadcrumb-item active" aria-current="page">Member</li>
                 </ol>
             </nav>
             <div class="card">
-                <div class="card-header">Data Buku</div>
+                <div class="card-header">Data Member</div>
                 <br>
-                <p><a class="btn btn-primary" href="{{ route('books.create') }}">Tambah</a> 
-                    <a class="btn btn-primary" href="{{ url('/admin/export/books') }}">Export</a>
-                 </p>
-                 <div class="card-body">
+                <center><p> <a class="btn btn-primary" href="{{ url('/admin/members/create') }}">Tambah</a> </p>
+                </center> <div class="card-body">
                    {!! $html->table(['class'=>'table table-striped']) !!}
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</div>@endsection
 @section('scripts')
 {!! $html->scripts() !!}
 @endsection
+
