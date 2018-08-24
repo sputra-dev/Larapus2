@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Konfirmasi Password</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Konfirmasii Password</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  required>
@@ -64,7 +64,7 @@
                             </div>
                             <center>
                         <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                            <div class="col-md-offset-4 col-md-6" data-sitekey="6Le_I2cUAAAAAKzGFWpI1OtYxORsX7Of0efKazrj">
+                            <div class="col-md-offset-4 col-md-6" data-sitekey="6LcvDWsUAAAAAHhFhf9BzeynRjEJVP5iny-fVlu8">
                             {!! app('captcha')->display() !!}
                             {!! $errors->first('g-recaptcha-response', '<p class="help-block">:message</p>') !!}
                             </div>
